@@ -1,0 +1,124 @@
+<html>
+    <head>
+        <meta class="myMeta" charset="utf-8" http-equiv="default-style" content="dark">
+        <link rel="stylesheet" title="dark" type="text/css" href="dark.css">
+        <link rel="stylesheet" title="light" type="text/css" href="light.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <!-- <div>hello world</div> -->
+        <button onclick="triggerPublish()">改变颜色</button>
+        <div id="app">
+        </div>
+        <script>
+            // var arr = [];
+            // function arr0(){
+            //     console.log(0);
+            // }
+            // arr[0] = arr0;
+            // function arr1(){
+            //     console.log(1);
+            // }
+            // arr[1] = arr1;
+            // function arr2(){
+            //     console.log(2);
+            // }
+            // arr[2] = arr2;
+
+            // console.log(arr.indexOf(arr2));
+
+
+            class PublishSubscribe{
+                constructor(){}
+                funcs = {};
+                listen(type, fn){
+                    if(!(type in this.funcs)){
+                        console.log("没有订阅该事件");
+                        this.funcs[type] = [];
+                    }
+
+                    this.funcs[type].push(fn);
+                }
+
+                trigger(type, params){
+                    // if(this.funcs.indexOf(func) < 0){
+                    //     console.log("没有订阅该事件");
+                    // };
+
+                    this.funcs[type].forEach(event => {
+                        event(params);
+                    })
+
+                }
+            };
+
+
+            let ps = new PublishSubscribe();
+
+            function theSubscribe(params){
+                console.log("给" + params + "发送了消息");
+            };
+
+            function theSubscribe2(params){
+                console.log(params + "您好！！！");
+            }
+
+            // function thePublish(info){
+            //     console.log("发布了消息：" + info);
+            // };
+
+            ps.listen("theSubscribe", theSubscribe);
+
+            ps.listen("theSubscribe", theSubscribe);
+
+            ps.listen("theSubscribe", theSubscribe);
+
+            ps.listen("theSubscribe", theSubscribe2);
+
+            console.log(ps);
+
+            function triggerPublish(){
+                ps.trigger("theSubscribe", "111");
+
+                // ps.trigger(theSubscribe2, "222");
+
+            };
+
+
+
+            // -------------------------------------------------------
+
+
+            function myPromise(){
+
+            }
+
+
+            const module = {
+              x: 42,
+              getX: function() {
+                return this.x;
+              }
+            };
+
+            const unboundGetX = module.getX;
+            console.log(unboundGetX());
+
+            
+            function changeColor(){
+                console.log("改变颜色！！！");
+                // $("meta").attr("content", "light");
+
+                $('meta[http-equiv=default-style]')[0].content = "light";
+
+            }
+            var a = [];
+            for (let i = 0; i < 10; i++) {
+                  a[i] = function () {console.log(i);};
+            }
+            // a[0]();                // 0
+            // a[1]();                // 1
+            // a[6]();                // 6
+        </script>
+    </body>
+</html>
